@@ -1,0 +1,33 @@
+.shimmer-button {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-6);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.shimmer-button-content {
+  position: relative;
+  z-index: 2;
+}
+
+.shimmer-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  z-index: 1;
+}

@@ -1,0 +1,126 @@
+.image-display {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-shrink: 0;
+  margin-bottom: var(--space-5);
+  padding: 0 var(--space-1) var(--space-4) var(--space-1);
+  border-bottom: 2px solid var(--border-medium);
+  gap: var(--space-4);
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+  min-width: 0;
+}
+
+.image-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.file-name {
+  font-size: 12px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  background: var(--bg-accent-secondary);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: 1px solid var(--border-light);
+  display: inline-block;
+  max-width: 450px;
+  height: 33px;
+  line-height: 17px;
+}
+
+.image-container {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  background: var(--bg-gradient);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 2px solid var(--border-medium);
+  box-shadow: inset 0 2px 8px rgba(61, 46, 31, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mammogram-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mammogram-image:hover {
+  transform: scale(1.02);
+}
+
+.btn-upload-new {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 7px 20px;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: -0.01em;
+}
+
+.btn-upload-new:hover {
+  border-color: var(--color-secondary);
+  background: var(--bg-accent-secondary);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(80, 197, 183, 0.25);
+}
+
+.btn-upload-new svg {
+  stroke: currentColor;
+  transition: all 0.3s ease;
+}
+
+.btn-upload-new:hover svg {
+  transform: translateY(-2px);
+}
+
+.btn-upload-new:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(122, 63, 109, 0.2);
+}
+
+@media (max-width: 768px) {
+  .image-header {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: auto;
+  }
+  
+  .btn-upload-new {
+    width: 100%;
+    justify-content: center;
+  }
+}

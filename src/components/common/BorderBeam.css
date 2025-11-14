@@ -1,0 +1,22 @@
+.border-beam-container {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: 2px;
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.border-beam {
+  position: absolute;
+  inset: -50%;
+  opacity: 0.8;
+  filter: blur(20px);
+}
+
+.border-beam-content {
+  position: relative;
+  background: var(--bg-primary);
+  border-radius: calc(var(--radius-lg) - 2px);
+  padding: var(--space-5);
+  z-index: 1;
+}
