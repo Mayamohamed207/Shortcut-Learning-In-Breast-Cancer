@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { PredictionResult } from '../MammogramViewer';
 import './ClassificationResult.css';
+
+// UPDATED: Added probability and confidence fields
+interface PredictionResult {
+  prediction: number;
+  probability: number;
+  label: string;
+  filename: string;
+  confidence: number;
+}
 
 interface ClassificationResultProps {
   hasImage: boolean;
@@ -26,10 +34,29 @@ const ClassificationResult: React.FC<ClassificationResultProps> = ({
     }
   }, [predictionResult]);
 
+  // Helper function to get confidence percentage
+  const getConfidenceDisplay = () => {
+    if (!predictionResult) return null;
+    const confidencePercent = (predictionResult.confidence * 100).toFixed(1);
+    return `${confidencePercent}%`;
+  };
+
+    const getPredictionColor = () => {
+      return predictionResult?.prediction === 0 
+        ? 'var(--color-success)' 
+        : 'var(--color-danger)';
+    };
+
+    const getPredictionBackground = () => {
+      return predictionResult?.prediction === 0
+        ? 'linear-gradient(135deg, rgba(59, 196, 91, 0.15) 0%, rgba(64, 196, 59, 0.25) 100%)'
+        : 'linear-gradient(135deg, rgba(214, 62, 104, 0.15) 0%, rgba(214, 62, 104, 0.25) 100%)';
+    };
+
   return (
     <div className="classification-panel">
       <h3>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
         </svg>
         Analysis Results
@@ -70,26 +97,41 @@ const ClassificationResult: React.FC<ClassificationResultProps> = ({
           <div className="result-card-container">
             <div className={`result-card-trail ${animate ? 'active' : ''}`}>
               
+              {/* Main Prediction Label - Using CSS Variables */}
               <div className="trail-step step2">
                 <div
                   className="prediction-label"
                   style={{ 
-                    color: predictionResult.prediction === 1 ? "#6DB18F" : "#E57A8C",
-                    background: predictionResult.prediction === 1 
-                      ? "linear-gradient(135deg, rgba(109, 177, 143, 0.15) 0%, rgba(109, 177, 143, 0.25) 100%)" 
-                      : "linear-gradient(135deg, rgba(229, 122, 140, 0.15) 0%, rgba(229, 122, 140, 0.25) 100%)"
+                    color: getPredictionColor(),
+                    background: getPredictionBackground()
                   }}
                 >
                   {predictionResult.label}
                 </div>
               </div>
               
+              {/* UPDATED: Show probability and confidence */}
               <div className="trail-step step3">
                 <div className="detail-card">
                   <div className="detail-item">
-                    <span className="detail-label">Prediction Value</span>
-                    <span className="detail-value">{predictionResult.prediction}</span>
+                    <span className="detail-label">Prediction</span>
+                    <span className="detail-value" style={{color: getPredictionColor()}}>
+                      {predictionResult.prediction}
+                    </span>
                   </div>
+                  <div className="detail-item">
+                    <span className="detail-label">Probability</span>
+                    <span className="detail-value">
+                      {(predictionResult.probability * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="detail-label">Confidence</span>
+                    <span className="detail-value" style={{color: 'var(--color-primary)'}}>
+                      {getConfidenceDisplay()}
+                    </span>
+                  </div>
+          
                 </div>
               </div>
               
@@ -101,25 +143,29 @@ const ClassificationResult: React.FC<ClassificationResultProps> = ({
                     <path d="M12 8h.01"/>
                   </svg>
                   <p>
-                    {predictionResult.prediction === 1 
-                      ? "The model has not detected signs of malignancy. This result indicates a negative classification."
-                      : "The model has detected potential signs requiring further evaluation. This result indicates areas of concern."
+                    {predictionResult.prediction === 0
+                      ? `The model predicts no signs of malignancy with ${getConfidenceDisplay()} confidence.`
+                      : `The model detects potential signs requiring further evaluation with ${getConfidenceDisplay()} confidence. `
                     }
                   </p>
                 </div>
               </div>
-               <div className="trail-step step5">
-              <div className="info-note">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                  <line x1="12" y1="9" x2="12" y2="13"/>
-                  <line x1="12" y1="17" x2="12.01" y2="17"/>
-                </svg>
-                <p>
-                 <strong>Important:</strong> A prediction value of <strong style={{color: predictionResult.prediction === 0 ? '#E57A8C' : '#6DB18F'}}>0</strong> indicates potential signs of malignancy detected by the model, while a value of <strong style={{color: predictionResult.prediction === 1 ? '#6DB18F' : '#E57A8C'}}>1</strong> indicates no signs detected (negative result).
+
+              <div className="trail-step step5">
+                <div className="info-note">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                  </svg>
+                 <p>
+                  <strong>Important:</strong> The model outputs a sigmoid probability. 
+                  <strong style={{color: 'var(--color-success)'}}>0</strong> (prob &lt; 0.5) = no malignancy, 
+                  <strong style={{color: 'var(--color-danger)'}}>1</strong> (prob ≥ 0.5) = potential malignancy.
                 </p>
+
+                </div>
               </div>
-            </div>
 
             </div>
           </div>

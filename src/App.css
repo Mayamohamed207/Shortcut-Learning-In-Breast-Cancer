@@ -10,7 +10,8 @@
   --color-primary-light: #F28BA8; /* Soft pink */
   --color-primary-dark: #D63E68;  /* Deep coral rose */
   --color-secondary: #7A3F6D;     /* Deeper purple plum */
-  --color-success: #3B8AC4;       /* Deeper blue */
+  --color-blue: #3B8AC4;       /* Deeper blue */
+   --color-success: #0d602b;       /* Deeper blue */
   --color-warning: #D4A04D;       /* Deeper golden amber */
   --color-danger: #D63E68;        /* Deep coral */
   --color-accent: #46351D;        /* Dark brown */

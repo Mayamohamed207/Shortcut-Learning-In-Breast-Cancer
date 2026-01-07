@@ -30,7 +30,7 @@
 }
 
 .drop-zone-viewer:hover {
-  border-color: var(--color-success); 
+  border-color: var(--color-blue); 
   background: var(--bg-primary);
   transform: translateY(-4px);
   box-shadow: 0 12px 10px rgba(80, 197, 183, 0.25);
@@ -101,7 +101,7 @@
   padding: 11px 25px;
   font-size: 15px;
   font-weight: 600;
-  background: linear-gradient(135deg, var(--color-success) 0%, #3FA89C 100%);
+  background: linear-gradient(135deg, var(--color-blue) 0%, #3FA89C 100%);
   color: var(--color-accent-secondary);
   border: none;
   border-radius: var(--radius-md);
