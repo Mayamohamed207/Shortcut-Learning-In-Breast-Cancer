@@ -2,9 +2,9 @@ import React, { useState, useRef } from 'react';
 import './MammogramViewer.css';
 import ImageUploader from './ImageUploader/ImageUploader';
 import ImageDisplay from './ImageDisplay/ImageDisplay';
-import ClassificationResult from './ClassificationResult/ClassificationResult';
+import PredictionResult from './PredictionResult/PredictionResult';
 
-export interface PredictionResult {
+export interface predictionData{
   prediction: number;
   probability: number;
   label: string;
@@ -50,7 +50,7 @@ const MammogramViewer: React.FC = () => {
         throw new Error(errorData.detail || 'Prediction failed');
       }
 
-      const result: PredictionResult = await response.json();
+      const result: predictionData = await response.json();
       setPredictionResult(result);
 
       if (result.gradcam_image) {
@@ -179,9 +179,9 @@ const MammogramViewer: React.FC = () => {
                 value={selectedModel}
                 onChange={(e) => handleModelChange(e.target.value)}
               >
-                <option value="base_model">Base Model (Epoch 4)</option>
-                <option value="segmented_model">Segmented Model (Epoch 12)</option>
-                <option value="background_model">Background Model (Epoch 7)</option>
+                <option value="base_model">Base Model</option>
+                <option value="segmented_model">Segmented Model</option>
+                <option value="background_model">Background Model</option>
               </select>
             </div>
           </div>
@@ -269,7 +269,7 @@ const MammogramViewer: React.FC = () => {
         </div>
 
         <div className="viewer-results">
-          <ClassificationResult 
+          <PredictionResult 
             hasImage={!!imageUrl}
             predictionResult={predictionResult}
             isLoading={isLoading}

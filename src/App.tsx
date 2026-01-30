@@ -38,7 +38,7 @@ function App() {
   
   const [config, setConfig] = useState<ConfigState>({
     modelArchitecture: 'base_model', 
-    trainingDataset: '1',
+    trainingDataset: 'All',
     riskHorizon: 3,
     confidence: 85,
     maskContralateral: false,

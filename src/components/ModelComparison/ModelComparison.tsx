@@ -64,11 +64,10 @@ const ModelComparison: React.FC<ModelComparisonProps> = ({ config }) => {
 
   const getCurrentData = (model: any) => viewMode === 'exam' ? model.examData : model.imageData;
 
-  const metrics = ['auc', 'accuracy', 'recall'];
+  const metrics = ['auc', 'accuracy'];
   const metricLabels = {
     auc: 'AUC',
     accuracy: 'ACC',
-    recall: 'REC',
   };
 
   return (
@@ -112,7 +111,7 @@ const ModelComparison: React.FC<ModelComparisonProps> = ({ config }) => {
                             style={{ width: `${percentage}%`, backgroundColor: model.color }}
                           ></div>
                         </div>
-                        <div className="bar-value-comp">{(value * 100).toFixed(1)}%</div>
+                        <div className="bar-value-comp">{(value * 100).toFixed(2)}%</div>
                       </div>
                     );
                   })}
@@ -188,44 +187,43 @@ const ModelComparison: React.FC<ModelComparisonProps> = ({ config }) => {
               <th>N {viewMode === 'exam' ? 'Exams' : 'Images'}</th>
               <th>N Cancer</th>
               <th>N Negative</th>
-              <th>AUC</th>
-              <th>Accuracy</th>
-              <th>Precision</th>
-              <th>Recall</th>
-              <th>F1 Score</th>
               <th>TP</th>
               <th>TN</th>
               <th>FP</th>
               <th>FN</th>
+               <th>AUC</th>
+              <th>Accuracy</th>
             </tr>
           </thead>
           <tbody>
-            {comparisonData.map((model) => {
-              const data = getCurrentData(model);
-              const total = viewMode === 'exam' ? data.n_exams : data.n_images;
-              return (
-                <tr key={model.id}>
-                  <td style={{ fontWeight: 700, color: model.color }}>{model.name}</td>
-                  <td>{total}</td>
-                  <td>{data.n_positive}</td>
-                  <td>{data.n_negative}</td>
-                  <td style={{ fontWeight: 900 }}>{(data.auc * 100).toFixed(1)}%</td>
-                  <td>{(data.accuracy * 100).toFixed(1)}%</td>
-                  <td>{(data.precision * 100).toFixed(1)}%</td>
-                  <td>{(data.recall * 100).toFixed(1)}%</td>
-                  <td>{(data.f1 * 100).toFixed(1)}%</td>
-                  <td>{data.tp}</td>
-                  <td>{data.tn}</td>
-                  <td>{data.fp}</td>
-                  <td>{data.fn}</td>
-                </tr>
-              );
-            })}
+        {comparisonData.map((model) => {
+          const data = getCurrentData(model);
+         
+          const total = (data.tp || 0) + (data.tn || 0) + (data.fp || 0) + (data.fn || 0);
+
+          const nPositive = data.n_positive ?? (data.tp + data.fn);
+          const nNegative = data.n_negative ?? (data.tn + data.fp);
+
+          return (
+            <tr key={model.id}>
+              <td style={{ fontWeight: 700, color: model.color }}>{model.name}</td>
+              <td style={{ fontWeight: 600 }}>{total}</td> 
+              <td>{nPositive}</td>
+              <td>{nNegative}</td>
+              <td style={{ fontWeight: 900 }}>{(data.auc * 100).toFixed(2)}%</td>
+              <td>{(data.accuracy * 100).toFixed(2)}%</td>
+              <td>{data.tp}</td>
+              <td>{data.tn}</td>
+              <td>{data.fp}</td>
+              <td>{data.fn}</td>
+            </tr>
+          );
+        })}
           </tbody>
         </table>
       </div>
 
-      <div className="radar-chart-section">
+      {/* <div className="radar-chart-section">
         <h3>Multi-Metric Radar Comparison</h3>
         <div 
           className="radar-container"
@@ -369,7 +367,7 @@ const ModelComparison: React.FC<ModelComparisonProps> = ({ config }) => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       <div className="subgroup-comparison-section">
         <h3>Subgroup Performance Comparison</h3>

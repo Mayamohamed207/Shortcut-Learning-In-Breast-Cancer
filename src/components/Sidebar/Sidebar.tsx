@@ -44,7 +44,7 @@ const Sidebar: React.FC<SidebarProps> = ({ config, setConfig, currentModel, onMo
       <motion.div className="control-group" variants={itemVariants}>
         <h3><Icons.Brain /> Model Architecture</h3>
         <div className="form-group">
-          <label>Active Selection</label>
+          <label>Select a model</label>
           <select value={currentModel} onChange={(e) => onModelSwitch(e.target.value)}>
             <option value="base_model">Base Model</option>
             <option value="segmented_model">Segmented</option>
@@ -128,7 +128,6 @@ const Sidebar: React.FC<SidebarProps> = ({ config, setConfig, currentModel, onMo
                 checked={config.trainingDataset === 'All'} 
                 onChange={handleDensityToggle}
               />
-              <span className="density-badge">{config.trainingDataset}</span>
             </div>
           </div>
           <input 
