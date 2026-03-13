@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './PredictionResult.css';
 
-// UPDATED: Added probability and confidence fields
 interface PredictionResult {
   prediction: number;
   probability: number;
@@ -91,7 +90,6 @@ const PredictionResult: React.FC<PredictionResultProps> = ({
           <div className="result-card-container">
             <div className={`result-card-trail ${animate ? 'active' : ''}`}>
               
-              {/* Main Prediction Label - Using CSS Variables */}
               <div className="trail-step step2">
                 <div
                   className="prediction-label"
@@ -104,7 +102,6 @@ const PredictionResult: React.FC<PredictionResultProps> = ({
                 </div>
               </div>
               
-              {/* UPDATED: Show probability and confidence */}
               <div className="trail-step step3">
                 <div className="detail-card">
                   <div className="detail-item">

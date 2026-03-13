@@ -108,7 +108,6 @@ def load_model(model_name: str = "Base Model"):
             model.fc = nn.Sequential(nn.Dropout(p=0.6), nn.Linear(512, 1))
         else:
             checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=True)
-            # Support different FC layer naming conventions
             fc_key = 'fc.1.weight' if 'fc.1.weight' in checkpoint else 'fc.weight'
             num_classes = checkpoint[fc_key].shape[0]
             model.fc = nn.Sequential(nn.Dropout(p=0.6), nn.Linear(512, num_classes))
@@ -124,7 +123,6 @@ def load_model(model_name: str = "Base Model"):
         logger.error(f"Failed to load model: {str(e)}")
         return False
 
-# --- DYNAMIC N-VARIABLE INTERSECTIONAL LOGIC ---
 def calculate_intersectional_metrics(df, column_names: List[str], aggregation='per_exam'):
     df_clean = df.copy()
     for col in column_names:
@@ -134,14 +132,12 @@ def calculate_intersectional_metrics(df, column_names: List[str], aggregation='p
         df_clean[col] = df_clean[col].fillna("Unknown").astype(str)
 
     results = []
-    # Group by the list of columns (supports 1, 2, 3 or more)
     grouped = df_clean.groupby(column_names)
     
     for group_values, df_sub in grouped:
         if len(df_sub) == 0:
             continue
 
-        # groupby return value is a tuple if multiple columns, or a single value if one
         if not isinstance(group_values, (tuple, list)):
             vals = [group_values]
         else:
@@ -160,7 +156,6 @@ def calculate_intersectional_metrics(df, column_names: List[str], aggregation='p
 
         m = calculate_metrics(y_true, y_prob)
         
-        # Build response row with metadata
         row_res = {
             "auc": m['auc'],
             "accuracy": m['accuracy'],
@@ -172,7 +167,6 @@ def calculate_intersectional_metrics(df, column_names: List[str], aggregation='p
             "n_negative": m['n_negative']
         }
         
-        # Map values back to their specific column names
         for i, col in enumerate(column_names):
             row_res[col] = str(vals[i])
             
@@ -257,7 +251,7 @@ async def evaluate_model_parquet(model_name: str = Form("base_model")):
 @app.post("/evaluate_intersection")
 async def evaluate_intersection(
     model_name: str = Form("base_model"),
-    columns: str = Form("race,tissueden"),  # Frontend should send comma-separated list
+    columns: str = Form("race,tissueden"),  
     view_mode: str = Form("exam")
 ):
     parquet_path = PARQUET_PATHS.get(model_name)
@@ -281,7 +275,6 @@ async def evaluate_intersection(
         logits = np.dot(embeddings, weight.T) + bias
         df['pred_prob'] = 1 / (1 + np.exp(-logits.flatten()))
 
-        # Split comma-separated string into list
         col_list = [c.strip() for c in columns.split(',') if c.strip()]
         agg_type = 'per_exam' if view_mode == 'exam' else 'per_image'
         

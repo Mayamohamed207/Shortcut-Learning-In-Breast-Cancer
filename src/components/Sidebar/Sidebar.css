@@ -32,7 +32,7 @@
 .control-group h3 {
   font-size: 13px;
   font-weight: 800;
-  color: var(--color-secondary); /* Purple #7A3F6D */
+  color: var(--color-secondary); 
   margin-bottom: var(--space-4);
   display: flex;
   align-items: center;
@@ -44,7 +44,7 @@
 .sidebar-icon {
   width: 16px;
   height: 16px;
-  stroke: var(--color-primary); /* Pink #d9829b */
+  stroke: var(--color-primary);
   stroke-width: 2.5;
   fill: none;
 }
@@ -62,27 +62,26 @@
   padding: var(--space-3);
   background: var(--bg-secondary);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-md); /* Aligned with your system radii */
+  border-radius: var(--radius-md); 
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-/* When the radio inside is checked, the wrapper turns Pink */
 .radio-wrapper:has(input[type="radio"]:checked) {
   background: white;
-  border-color: var(--color-primary); /* Pink Border #d9829b */
+  border-color: var(--color-primary); 
   box-shadow: var(--shadow-sm);
 }
 
 .radio-wrapper:hover {
   background: var(--bg-tertiary);
-  border-color: var(--color-primary); /* Pink Hover #d9829b */
+  border-color: var(--color-primary); 
 }
 
 .radio-wrapper input[type="radio"] {
   width: 18px;
   height: 18px;
-  accent-color: var(--color-primary); /* Pink Circle #d9829b */
+  accent-color: var(--color-primary); 
   cursor: pointer;
 }
 
@@ -121,7 +120,7 @@
 
 .segment-btn.active {
   background: white;
-  color: var(--color-primary); /* Active text now Pink #d9829b */
+  color: var(--color-primary); 
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
@@ -140,7 +139,7 @@
 .checkbox-wrapper input[type="checkbox"] {
   width: 16px;
   height: 16px;
-  accent-color: var(--color-primary); /* Pink #d9829b */
+  accent-color: var(--color-primary); 
   cursor: pointer;
 }
 
@@ -183,7 +182,7 @@ select {
 }
 
 .density-badge {
-  background: var(--color-primary); /* Pink Badge #d9829b */
+  background: var(--color-primary); 
   color: white;
   padding: 1px 8px;
   border-radius: 12px;
@@ -193,7 +192,7 @@ select {
 
 input[type="range"] {
   width: 100%;
-  accent-color: var(--color-primary); /* Pink Slider #d9829b */
+  accent-color: var(--color-primary); 
   cursor: pointer;
 }
 

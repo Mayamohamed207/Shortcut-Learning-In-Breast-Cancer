@@ -53,7 +53,6 @@ const KPIGrid: React.FC<KPIGridProps> = ({ overall, loading, viewMode }) => {
       </div>
 
       <div className="kpi-grid">
-        {/* AUC CARD */}
         <div className="kpi-card auc-card">
           <div className="kpi-header-row">
             <div className="kpi-label">AUC Score</div>
@@ -64,32 +63,6 @@ const KPIGrid: React.FC<KPIGridProps> = ({ overall, loading, viewMode }) => {
           </div>
           <div className="kpi-subtitle">Area Under Curve</div>
         </div>
-
-        {/* RECALL CARD (Sensitivity is crucial for cancer detection)
-        <div className="kpi-card recall-card">
-          <div className="kpi-header-row">
-            <div className="kpi-label">Sensitivity</div>
-            <div className="kpi-badge">TPR</div>
-          </div>
-          <div className="kpi-value">{(overall.recall * 100).toFixed(2)}%</div>
-          <div className="kpi-bar">
-            <div className="kpi-bar-fill" style={{ width: `${overall.recall * 100}%`, backgroundColor: '#D4A04D' }}></div>
-          </div>
-          <div className="kpi-subtitle">Recall (Cancer Detection)</div>
-        </div> */}
-
-        {/* ACCURACY CARD
-        <div className="kpi-card accuracy-card">
-          <div className="kpi-header-row">
-            <div className="kpi-label">Accuracy</div>
-            <div className="kpi-badge">ACC</div>
-          </div>
-          <div className="kpi-value">{(overall.accuracy * 100).toFixed(2)}%</div>
-          <div className="kpi-bar">
-            <div className="kpi-bar-fill" style={{ width: `${overall.accuracy * 100}%`, backgroundColor: '#d9829b' }}></div>
-          </div>
-          <div className="kpi-subtitle">Overall Correctness</div>
-        </div> */}
 
         <div className="kpi-card prevalence-card">
           <div className="kpi-header-row">
