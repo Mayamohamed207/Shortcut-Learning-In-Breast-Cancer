@@ -42,13 +42,13 @@ gradcampp = None
 current_model_name = "Base Model"
 
 AVAILABLE_MODELS = {
-    "Base Model": "./models/all-exams-weighted-sampling-constant-interpolation-pytorch-default-v1/base_model_epoch_4.pth",
-    "Segmented Model": "./models/all-exams-weighted-sampling-constant-interpolation-pytorch-default-v1/segmented_model_epoch_4.pth",
-    "Background Model": "./models/all-exams-weighted-sampling-constant-interpolation-pytorch-default-v1/background_model_epoch_3.pth"
+    "Base Model": "./models/all-exams-segmenatation-models-pytorch-default-v1/base_model_epoch_4.pth",
+    "Segmented Model": "./models/all-exams-segmenatation-models-pytorch-default-v1/manual_segmentation_model_epoch_4.pth",
+    "Background Model": "./models/all-exams-segmenatation-models-pytorch-default-v1/manual_background_model_epoch_4.pth"
 }
 
 PARQUET_PATHS = {
-    "base_model": r"C:\Users\MO\shortcut-breast-cancer-playground\backend\predictions_subgroups\parquet\base_model_embeddings.parquet",
+    "base_model": r"C:\Users\MO\shortcut-breast-cancer-playground\backend\predictions_subgroups\parquet\original_model_embeddings.parquet",
     "segmented_model": r"C:\Users\MO\shortcut-breast-cancer-playground\backend\predictions_subgroups\parquet\segmented_model_embeddings.parquet",
     "background_model": r"C:\Users\MO\shortcut-breast-cancer-playground\backend\predictions_subgroups\parquet\background_model_embeddings.parquet",
 }
@@ -116,8 +116,8 @@ def load_model(model_name: str = "Base Model"):
         
         model.to(device)
         model.eval()
-        gradcam = GradCAM(nn_module=model, target_layers="layer4")
-        gradcampp = GradCAMpp(nn_module=model, target_layers="layer4")
+        gradcam = GradCAM(nn_module=model, target_layers="layer4", postprocessing=lambda x:x)
+        gradcampp = GradCAMpp(nn_module=model, target_layers="layer4",postprocessing=lambda x:x)
         current_model_name = model_name
         return True
     except Exception as e:

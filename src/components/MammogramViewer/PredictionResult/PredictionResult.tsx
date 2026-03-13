@@ -148,7 +148,7 @@ const PredictionResult: React.FC<PredictionResultProps> = ({
                     <line x1="12" y1="17" x2="12.01" y2="17"/>
                   </svg>
                  <p>
-                  <strong>Important:</strong> The model outputs a sigmoid probability. 
+                  <strong>Note:</strong> The model outputs a sigmoid probability. 
                   <strong style={{color: 'var(--color-success)'}}>0</strong> (prob &lt; 0.5) = no malignancy, 
                   <strong style={{color: 'var(--color-danger)'}}>1</strong> (prob ≥ 0.5) = potential malignancy.
                 </p>
